@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Care-Taker Profile Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+        .box1 {
+            width: 800px;
+            background-color: azure;
+            margin: auto;
+            height: 650px;
+            margin-top: 10px;
+
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#btnSearch").click(function () {
+                var emailid = $("#txtUid").val();
+
+                var obj = {
+                    type: "get",
+                    url: "/search-details-careTaker",
+                    data: {
+                        email: emailid
+                    }
+                }
+                $.ajax(obj).done(function (table) {
+                    //alert(JSON.stringify(table));
+                    if (table.length == 1) {
+                        console.log(table);
+                        $("#btnEdit").prop('disabled', false);
+                        $("#txtName").val(table[0].name);
+                        $("#txtMob").val(table[0].contact);
+                        $("#txtFirm").val(table[0].firmweb);
+                        $("#txtAdd").val(table[0].address);
+                        $("#inputCity").val(table[0].city);
+                        $("#inputProv").val(table[0].province);
+                        //alert(table[0].pets);
+                        var splits = table[0].petTypes.split(',');
+                        var petsRef = document.querySelector("#inputPets");
+                    
+                        for (var j = 0; j < splits.length; j++)
+                         {
+                            for (var i = 0; i < petsRef.length; i++) {
+                                if (splits[j] == petsRef[i].value) {
+                                    petsRef[i].selected = true;
+                                }
+                            }
+                        }
+                        $("#txtarea").val(table[0].information);
+                    }
+                    else {
+                        alert("NO RECORD FOUND, Please save your details")
+                        $("#btnSave").prop('disabled', false);
+                    }
+                }).fail(function (resp) {
+                    alert(resp);
+                })
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div class="box1">
+        <div class="row">
+            <div class="col-md-12">
+                <center>
+                    <h3>Profile Page</h3>
+                </center>
+            </div>
+        </div>
+        <form method="post" name="frm" id="frmid">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="txtUid" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="txtUid" name="txtUidn">
+                </div>
+                <div class="col-md-2 mt-2">
+                    <label for="" class="form-label"></label><br>
+                    <input type="button" id="btnSearch" class="btn btn-primary" style="background-color: #2487ce;   border: 1px solid #2487ce;" value="Search">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="txtName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="txtName" placeholder="Enter your full name"
+                        name="txtNamen">
+                </div>
+                <div class="col-md-4">
+                    <label for="txtMob" class="form-label">Contact number</label>
+                    <input type="text" class="form-control" id="txtMob" name="txtMobn">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <label for="inputFirm" class="form-label">Firm/Website</label>
+                    <input type="text" class="form-control" id="txtFirm" name="txtFirmn">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="inputAdd" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="txtAdd" name="txtAddn">
+                </div>
+                <div class="col-md-3">
+                    <label for="txtCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="txtCity" name="txtCityn">
+                </div>
+                <div class="col-md-4">
+                    <label for="txtProv" class="form-label">Province</label>
+                    <select id="inputProv" class="form-select" name="inputProvn">
+                        <option selected>Choose...</option>
+                        <option>British Columbia</option>
+                        <option>Ontario</option>
+                        <option>Montreal</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="inputPets" class="form-label">Pet Types</label>
+                    <select id="inputPets" class="form-select" name="inputPetsn" multiple>
+                        <option selected>Cats</option>
+                        <option>Dogs</option>
+                        <option>Bunnies</option>
+                        <option>Hamsters</option>
+                    </select>
+                </div>
+                <div class="col-md-8">
+                    <label for="txtarea" class="form-label">Other Information</label>
+                    <textarea class="form-control" placeholder="Leave any Information here you want the client to know"
+                        id="txtarea" name="txtarean" style="height: 100px"></textarea>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-12" bg-light.bg-gradient>
+                    <center>
+                        <input type="submit" id="btnSave" value="Save" class="btn btn-primary"
+                        style="background-color: #2487ce;   border: 1px solid #2487ce;" formaction="/profileCareTaker-save" style="width: 80px;" disabled>
+                        <input type="submit" id="btnEdit" value="Edit" class="btn btn-primary"
+                        style="background-color: #2487ce;   border: 1px solid #2487ce;"  formaction="/profileCareTaker-edit" style="width: 80px; margin-left: 4px;" disabled>
+                    </center>
+                </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

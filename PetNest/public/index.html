@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <style>
+        .navbar {
+            padding: 0;
+        }
+
+        .navbar ul {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .navbar li {
+            position: relative;
+            padding: 4px 10px 10px 4px;
+
+        }
+
+        li:hover {
+            cursor: pointer;
+            color: #2487ce;
+        }
+
+        .img-navbar {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            background-size: contain;
+            border-radius: 50%;
+            float: left;
+            margin: 0;
+        }
+
+        .headingg {
+            display: flex;
+            justify-content: left;
+        }
+
+        .nav-heading {
+            margin-left: 15px;
+            margin-top: 9px;
+            font-weight: 1500;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .image {
+            background-image: url(uploads/pets\ image.webp);
+            height: 380px;
+            background-size: contain;
+        }
+
+        .text-home {
+            color: #124265;
+            font-family: "Poppins", sans-serif;
+            font-weight: bold;
+            margin-left: 350px;
+
+
+        }
+
+        .cards-home {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 50px;
+
+        }
+
+        .btn-get-started {
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            padding: 14px 50px;
+            border-radius: 5px;
+            transition: 0.5s;
+            margin-top: 30px;
+            color: #fff;
+            background: #2487ce;
+            margin-left: 230px;
+            text-decoration: none;
+        }
+
+        .btn-navbar {
+            font-family: "Poppins", sans-serif;
+            width: 80px;
+            height: 38px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            border-radius: 5px;
+            transition: 0.5s;
+            color: #fff;
+            background: #2487ce;
+            border: 1px solid #2487ce;
+        }
+
+        .card {
+            box-shadow: 0 0 29px 0 rgba(18, 66, 101, 0.08);
+        }
+
+        .card:hover {
+            transform: scale(1.08);
+        }
+
+        .card-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #124265;
+        }
+
+        .text-services {
+            margin-top: 70px;
+            font-family: "Poppins", sans-serif;
+            margin-left: 550px;
+
+        }
+
+        .img-card-home {
+            width: 120px;
+            height: 120px;
+            padding: 20px;
+            margin: auto;
+            margin-top: 10px;
+            border-radius: 50%;
+        }
+
+        .cards-services {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-top: 60px;
+
+        }
+
+        .img-card-services {
+            width: 230px;
+            height: 230px;
+            padding: 10px;
+            margin: auto;
+            margin-top: 10px;
+        }
+
+        .text-about {
+            margin-top: 70px;
+            font-family: "Poppins", sans-serif;
+            margin-left: 550px;
+        }
+
+        #go-top {
+            width: 70px;
+            height: 70px;
+            position: fixed;
+            right: 25px;
+            bottom: 10px;
+            background-image: url(uploads/toppp.png);
+            background-size: 75%;
+            background-repeat: no-repeat;
+            background-position: right
+        }
+    </style>
+    <script>
+
+        $(document).ready(function () {
+
+            $("#btnSignup").click(function () {
+                var emailid = $("#txtEmail").val();
+                var pass = $("#txtPwd").val();
+                var type = $("#userT").val();
+
+                var obj = {
+                    type: "get",
+                    url: "/signup-process",
+                    data: {
+                        email: emailid,
+                        pwd: pass,
+                        uType: type
+                    }
+                }
+
+                $.ajax(obj).done(function (strMsg) {
+                    alert(strMsg);
+                })
+
+            })
+
+            //-----------------------------------------------
+
+            $("#btnLogin").click(function () {
+                var emailid = $("#txtEmailLogin").val();
+                var pass = $("#txtPwdLogin").val();
+
+                var obj = {
+                    type: "get",
+                    url: "/login-process",
+                    data: {
+                        email: emailid,
+                        pwd: pass,
+                    }
+                }
+                $.ajax(obj).done(function (resp) {
+                    localStorage.setItem("activeUser",emailid)
+                    if (resp[0].userType == "Client") {
+                        location.href = 'dash-client.html';
+                    }
+                    else if (resp[0].userType == "Care Taker") {
+                        location.href = 'dash-care-taker.html';
+                    }
+                    else {
+                        alert("invalid details");
+                    }
+                })
+            })
+        })
+    </script>
+
+</head>
+
+<body id="top">
+    <a href="#top">
+        <div id="go-top"></div>
+    </a>
+    <div class="container">
+        <div class="box">
+            <nav class="navbar bg-body-tertiary" style="height: 65px;">
+                <div class="container-fluid">
+                    <div class="headingg">
+                        <img class="img-navbar" src="uploads/Pets logo.jpg">
+                        <div class="nav-heading">
+                            <h4 style="color: #2487ce">PETNEST</h2>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <!-- .navbar -->
+                        <nav id="navbar" class="navbar">
+                            <ul>
+                                <li><a href="#home" class="nav-link">Home</a></li>
+                                <li><a href="#services" class="nav-link">Services</a></li>
+                                <li><a href="#about" class="nav-link" style="margin-right: 10px;">About</a>
+                                <li><a href="dash-admin.html" class="nav-link" style="margin-right: 10px;">Admin</a>
+                                </li>
+                            </ul>
+                            <button type="button" class="btn-navbar" data-bs-toggle="modal"
+                                data-bs-target="#signupModel">
+                                Signup
+                            </button>
+                            <button type="button" class="btn-navbar" data-bs-toggle="modal" data-bs-target="#loginModel"
+                                style="margin-left: 6px;">
+                                Login
+                            </button>
+                        </nav>
+                        <!-- .navbar -->
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="home" id="home">
+            <div class="image">
+                <div class="row text-home">
+                    <div col-md-12>
+                        <h1 style="font-size: 50px; font-weight: 700; line-height: 72px; margin-top: 65px;">Welcome To
+                            Our Website!
+                        </h1>
+                        <h2 style="margin-left:-35px;">Highest Quality Care For Your Pets You Will Love</h2>
+                        <a href="#services" class="btn-get-started">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row cards-home">
+                <div class="card" style="width: 18rem;">
+                    <img src="uploads/hotel rooms.png" class="card-img-top img-card-home" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Forget Hotel Rooms!</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem; margin-left: 20px;">
+                    <img src="uploads/giving.png" class="card-img-top img-card-home" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">It Feels Good To Give!</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;  margin-left: 20px;">
+                    <img src="uploads/thinking.png" class="card-img-top img-card-home" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">A New Perspective!</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="services" id="services">
+            <!--clients can find caretakers. caretakers can post their information-->
+            <div class="row text-services">
+                <div col-md-12>
+                    <h1 style="font-size: 30px; font-weight: 600;line-height: 50px;  color: #124265; ">SERVICES
+                    </h1>
+                    <p style="margin-left: -520px; font-size: 18px; font-weight:1px; color:	#696969;">
+                        We are dedicated to provide the best possible care for your furry friends. Whether you need help
+                        with grooming, training or just need a safe place to leave your pets while you're away, we've
+                        got you covered!! We have a team of experienced professionals.... Thankyou for choosing us for
+                        all your pet needs!
+                    </p>
+                </div>
+            </div>
+            <div class="row cards-services">
+                <div class="card" style="width: 18rem;">
+                    <img src="uploads/find.png" class="card-img-top img-card-services " alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">FIND YOUR CARETAKER!</h5>
+                        <p class="card-text">Use our search feature! Our webiste has a search feature that allows
+                            clients to search for caretakers based on location and pet types</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem; margin-left: 50px;">
+                    <img src="uploads/caretaker-image.png" class="card-img-top img-card-services " alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">BE A CARETAKER!</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem; margin-left: 50px;">
+                    <img src="uploads/24 7.jfif" class="card-img-top img-card-services " alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">24*7 AVAILABLE!</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem; margin-left: 50px;">
+                    <img src="uploads/door to door.jpg" class="card-img-top img-card-services " alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">DOOR TO DOOR SERVICES</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about" id="about">
+            <div class="row text-about">
+                <div col-md-12>
+                    <h1 style="font-size: 30px; font-weight: 600;line-height: 50px;  color: #124265; ">ABOUT ME
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal for signup-->
+    <div class="modal fade" id="signupModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Signup Here</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" id="txtEmail" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" id="txtPwd" class="form-control" id="exampleInputPassword1">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">User Type</label>
+                            <select class="form-select" id="userT">
+                                <option selected>Choose...</option>
+                                <option>Client</option>
+                                <option>Care Taker</option>
+
+                            </select>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                    <input type="button" id="btnSignup" value="Signup" class="btn-navbar">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for login-->
+    <div class="modal fade" id="loginModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login Here</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label>
+                            <input type="email" id="txtEmailLogin" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" id="txtPwdLogin" class="form-control" id="exampleInputPassword1">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+
+                    <input type="button" id="btnLogin" value="Login" class="btn-navbar">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

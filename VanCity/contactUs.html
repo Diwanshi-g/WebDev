@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>contact us</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="contactUs.css">
+      <!-- Required meta tags -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+      <!-- Bootstrap CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <!-- Option 1: Bootstrap Bundle with Popper -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+          crossorigin="anonymous"></script>
+          <script>
+
+            function doShowPrev(ref) {
+            //alert();
+           var image = document.getElementById('prev');
+           image.src = URL.createObjectURL(ref.files[0]);
+           }
+          </script>
+
+          <script>
+            $(document).ready(
+                function () {
+                    $("#submitButton").click(function () {
+                        var email = $("#txtUid").val();
+                        var reg = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+                        var resp = reg.test(email);
+                        if (resp == true)
+                            $("#errEmail").html("Valid").addClass("ok").removeClass("not-ok");
+                        else
+                            $("#errEmail").html("In Valid").addClass("not-ok").removeClass("ok");
+                    })
+                    //-------------------------------
+                    $("#submitButton").click(function(){
+                     
+                        var mob=$("#txtMob").val();
+                        var reg=/^([2-9]{1}[0-9]{2})(([2-9]{1})(1[0,2-9]{1}|[0,2-9]{1}[0-9]{1}))([0-9]{4})$/;
+                        var resp = reg.test(mob);
+                        if (resp == true)
+                            $("#errMob").html("Valid").addClass("ok").removeClass("not-ok");
+                        else
+                            $("#errMob").html("In Valid").addClass("not-ok").removeClass("ok");
+                    })
+                }
+            );
+        </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="heading_bar">
+            <span id="title">
+                <h4>Contact Us</h4>
+            </span>
+            <span id="home"><a class="link" href="index.html">
+                    <h5>HOME</h5>
+                </a></span>
+        </div>
+        <div id="form">
+            <form method="post" enctype="multipart/form-data" name="form" id="formid" >
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="txtUid" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="txtUid" name="txtUid">
+                        <label for="" id="errEmail"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="txtName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="txtName" placeholder="Enter your full name"
+                            name="txtName">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="txtNo" class="form-label">Contact Number</label>
+                        <input type="text" class="form-control" id="txtMob" name="txtNo">
+                        <label for="" id="errMob"></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-9">
+                        <label for="inputAddress" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="inputAddress" name="txtAdd">
+                        <label for=""></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="inputState" class="form-label">Province</label>
+                        <select id="inputState" class="form-select" name="txtState">
+                            <option selected>Choose...</option>
+                            <option>British Columbia</option>
+                            <option>Alberta</option>
+                            <option>Ontario</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputCity" class="form-label">City</label>
+                        <input type="text" class="form-control" id="inputCity" name="txtCity">
+                        <label></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="work" class="form-label">Write Your Questions Here</label>
+                        <textarea name="work" cols="90" rows="4" id="work"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <br>
+                        <label for="IDproof" class="form-label">ID Proof</label>
+                        <input type="file" name="IDproof" id="IDproof" onchange="doShowPrev(this);">
+                        <br>
+                        <img src="" id="prev" alt="" width="150" height="150">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <center>
+                            <input type="button" id="submitButton" value="SUBMIT" class="btn btn-dark" style="width: 100px; font-weight: bold;">
+                        </center>
+                        <br><br>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</body>
+
+</html>

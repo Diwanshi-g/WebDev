@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<style>
+    .box1 {
+            width: 800px;
+            background-color: azure;
+            margin: auto;
+            height: 650px;
+            margin-top: 10px;
+
+        }
+</style>  
+<script>
+    function doShowPrev(ref){
+        var image=document.getElementById('prev');
+        image.src=URL.createObjectURL(ref.files[0]);
+    }
+</script>
+<script>
+    $(document).ready(function(){
+        $("#btnSearch").click(function(){
+            var emailid=$("#txtUid").val();
+
+            var obj={
+                type: "get",
+                url:"/search-details-client",
+                data:{
+                    email:emailid
+                }
+            }
+            $.ajax(obj).done(function(table){
+                //alert(JSON.stringify(table));
+                $("#txtName").val(table[0].name);
+                $("#txtMob").val(table[0].number);
+                $("#txtAdd").val(table[0].address);
+                $("#txtCity").val(table[0].city);
+                $("#inputState").val(table[0].state);
+                $("#txtPostal").val(table[0].postalCode);
+                $("#pets").val(table[0].pets);
+                $("#prev").attr("src","uploads/"+table[0].idProof);
+            })
+        })
+    })
+</script>
+<script>
+    function showActiveUser(){
+         //alert(localStorage.getItem("activeUser"));
+         document.getElementById("txtUid").value=localStorage.getItem("activeUser");
+    }
+  </script>
+</head>
+  <body onload="showActiveUser()">
+    <div class="box1">
+        <div class="row">
+            <div class="col-md-12" >
+                <center>
+                    <h3>Profile Page</h3>
+                </center>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data" name="frm" id="frmid" >
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="txtUid" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="txtUid" disabled name="txtUidn">
+                    
+                </div>
+                <div class="col-md-2 mt-2">
+                    <label for="" class="form-label"></label><br>
+                    <input type="button" id="btnSearch" class="btn btn-primary" value="Search" style="background-color: #2487ce;   border: 1px solid #2487ce;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="txtName" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="txtName" placeholder="Enter your full name"
+                        name="txtNamen">
+                </div>
+                <div class="col-md-4">
+                    <label for="txtMob" class="form-label">Contact number</label>
+                    <input type="text" class="form-control" id="txtMob" name="txtMobn">
+                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-9">
+                    <label for="inputAdd" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="txtAdd" name="txtAddn">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="txtCity" class="form-label">City</label>
+                    <input type="text" class="form-control" id="txtCity" name="txtCityn">
+                </div>
+                <div class="col-md-3">
+                    <label for="inputState" class="form-label">Province</label>
+                    <select id="inputState" class="form-select" name="inputStaten">
+                        <option selected>Choose...</option>
+                        <option>Punjab</option>
+                        <option>Haryana</option>
+                        <option>Rajasthan</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="txtPostal" class="form-label">Postal Code</label>
+                    <input type="text" class="form-control" id="txtPostal" name="txtPostaln">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <br>
+                    <label for="IDproof" class="form-label">ID Proof</label>
+                    <input class="form-control" type="file" name="IDproofn" id="IDproof" onchange="doShowPrev(this);">
+                </div>
+                <div class="col-md-3" style="margin-top: 30px;">
+                    <img src="" id="prev" alt="" width="120" height="100" >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="pets" class="form-label">What Pets do you have?</label>
+                    <textarea name="petsn" cols="90" rows="2" id="pets"></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12" bg-light.bg-gradient>
+                    <center>
+                        <input type="submit" style="background-color: #2487ce;   border: 1px solid #2487ce;" id="btnSave" value="Save" class="btn btn-primary" formaction="/profileClient-save" style="width: 80px;">
+                        <input type="submit" style="background-color: #2487ce;   border: 1px solid #2487ce;"  id="btnEdit" value="Edit" class="btn btn-primary" formaction="/profileClient-edit" style="width: 80px; margin-left: 4px;">
+                    </center>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  </body>
+</html>

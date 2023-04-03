@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <title></title>
+</head>
+<style>
+    table {
+        border: 1px black solid;
+        box-shadow: 0px 0px 1px 1px black;
+        padding: 5px;
+        height: 250px;
+        margin-top: 180px;
+    }
+
+    input[type=button] {
+        color: white;
+        background-color: gray;
+        font-weight: bolder;
+        width: 56px;
+    }
+    input[type=button]:active{
+        transform: translate(0px,5px);
+    }
+</style>
+<script>
+    var val="";
+    function getValue(ref)
+    {
+         val=val+ref;
+        document.getElementById("txt").value=val;
+    }
+    function doClear()
+    {
+       
+        document.getElementById("txt").value="";
+        val="";
+    }
+    function doErase()
+    {
+         var x=val.length;
+         val=val.substr(0,x-1);
+         document.getElementById("txt").value=val;
+
+    }
+   
+    function getEqual()
+    {
+        var eva=eval(val);
+        document.getElementById("txt").value=eva;
+
+    }
+   
+  
+   
+</script>
+
+<body>
+    <center>
+        <form id="frm">
+            <table border="1">
+                <tr>
+                    <td
+                        style="width: 300px;height:30px;color: rgb(255, 255, 255);background-color: black; font-weight: bolder; text-align: center;font-size: large;">
+                        Calculator</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="txt" autofocus style="width: 250px;" >
+                        <input type="button" value="." style="width: 40px" onclick="getValue(this.value);" >
+                    </td>
+                <tr>
+                    <td>
+                        <input type="button" value="%" onclick="getValue(this.value);" id="%">
+                        <input type="button" value="C" onclick="doClear()" id="C">
+                        <input type="button" value="(" onclick="getValue(this.value);" id="(">
+                        <input type="button" value=")" onclick="getValue(this.value);" id=")">
+                        <input type="button" value="E" onclick="doErase();" id="E">
+                    </td>
+                <tr>
+                    <td>
+                        <input type="button" value="1" onclick="getValue(this.value);" id="1">
+                        <input type="button" value="2" onclick="getValue(this.value);" id="2">
+                        <input type="button" value="3" onclick="getValue(this.value);" id="3">
+                        <input type="button" value="4" onclick="getValue(this.value);" id="4">
+                        <input type="button" value="/" onclick="getValue(this.value);" id="/">
+                    </td>
+                <tr>
+                    <td>
+                        <input type="button" value="5" onclick="getValue(this.value);" id="5">
+                        <input type="button" value="6" onclick="getValue(this.value);" id="6">
+                        <input type="button" value="7" onclick="getValue(this.value);" id="7">
+                        <input type="button" value="8" onclick="getValue(this.value);" id="8">
+                        <input type="button" value="*" onclick="getValue(this.value);" id="*">
+                    </td>
+                <tr>
+                    <td>
+                        <input type="button" value="9" onclick="getValue(this.value);" id="9">
+                        <input type="button" value="0" onclick="getValue(this.value);" id="0">
+                        <input type="button" value="=" onclick="getEqual();" id="=">
+                        <input type="button" value="+" onclick="getValue(this.value);" id="+">
+                        <input type="button" value="-" onclick="getValue(this.value);" id="-">
+                    </td>
+
+                </tr>
+
+                </tr>
+            </table>
+        </form>
+    </center>
+</body>
+
+</html>

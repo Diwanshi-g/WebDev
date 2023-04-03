@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="Js/angular.min.js"></script>
+    <style>
+        .fetch-btn-div {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .fetch-btn {
+            color: #0275d8;
+            background-color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid #0275d8;
+            border-radius: 5px;
+        }
+
+        .table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .table thead tr {
+            background-color: #0275d8;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px 15px;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+    </style>
+    <script>
+
+        var mymodule = angular.module("itsModule", []);
+        mymodule.controller("itsController", function ($scope, $http) {
+
+            $scope.jsonAry;
+
+            $scope.ajaxCall = function () {
+                $http.get("/fetch-all-clients").then(fxOk, fxNotOk);
+                function fxOk(response) {
+                    //alert(JSON.stringify(response.data))
+                    $scope.jsonAry = response.data;
+                }
+                function fxNotOk(response) {
+                    alert(response.data);
+                }
+            }
+            //-----------------------------------
+            $scope.doDelete = function (email, index) {
+                
+                
+                if (confirm("If you click Okay this entry will be Deleted from the record permanently") == false) {
+                    return;
+                }
+                $http.get("/delete-client?emailid="+email).then(fxDel,fxNotDel);
+                function fxDel(response)
+                {
+                    $scope.ajaxCall();
+                }
+                function fxNotDel(response)
+                {
+                    alert(response.data);
+                }
+               
+            }
+        })
+
+    </script>
+</head>
+
+<body ng-app="itsModule" ng-controller="itsController">
+    <div class="container">
+        <div class="fetch-btn-div">
+            <input type="button" class="fetch-btn" value="Fetch All Client Records" ng-click="ajaxCall();">
+        </div>
+        <table border="1" class="table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Email ID</th>
+                    <th>Name</th>
+                    <th>Number</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Province</th>
+                    <th>Postal</th>
+                    <th>ID Proof</th>
+                    <th>Pets</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in jsonAry">
+                    <td>
+                        {{$index+1}}
+                    </td>
+                    <td>
+                        {{row.email}}
+                    </td>
+                    <td>
+                        {{row.name}}
+                    </td>
+                    <td>
+                        {{row.number}}
+                    </td>
+                    <td>
+                        {{row.address}}
+                    </td>
+                    <td>
+                        {{row.city}}
+                    </td>
+                    <td>
+                        {{row.state}}
+                    </td>
+                    <td>
+                        {{row.postalCode}}
+                    </td>
+                    <td>
+                        <img src="uploads/{{row.idProof}}" width="100" height="100">
+                    </td>
+                    <td>
+                        {{row.pets}}
+                    </td>
+                    <td>
+                        <input type="button" class="fetch-btn" value="Delete" ng-click="doDelete(row.email,$index);">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

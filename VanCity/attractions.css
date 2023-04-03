@@ -1,0 +1,49 @@
+#wrapper { width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    min-width: 900px;
+    max-width: 1280px;
+    font-family: 'Courier New', Courier, monospace;
+}
+#heading_bar {
+    background-color: black;
+    color: white;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow: 3px 3px 3px  #d1cfcf;
+}
+#title{
+    float: left;
+    font-size: 20px;
+ }
+ #home{
+     float: right;
+     margin-right: 5px;
+     font-size: 20px;
+ }
+ #home a{
+     text-decoration: none;
+     color: white;
+ }    
+ #images_frame1{
+    display: flex;
+    flex-direction: row;
+    margin-top: 80px;
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+ }
+ .images{
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+ }
+ #images_frame2{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+    width: 70%;
+    margin-right: auto;
+    margin-left: auto;
+ }

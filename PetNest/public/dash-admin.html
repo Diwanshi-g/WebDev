@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        .navbarr {
+            background-color: #2487ce;
+            color: white;
+            height: 50px;
+            padding: 10px;
+            border: 1px solid#2487ce;
+        }
+        #titlee{
+           float: left;
+           
+        }
+        #homee{
+            float: right;
+            margin-right: 5px;
+            
+        }
+        .link{
+            text-decoration: none; color:white;
+        }
+        .link:hover{
+            color: blue;
+        }
+        @keyframes slideInLeft {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        header {
+            animation: 1s ease-out 0s 1 slideInLeft;
+
+        }
+
+        .cardBorder {
+            box-shadow: 29px 29px 29px 29px rgba(18, 66, 101, 0.08);
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbarr">
+               <span id="titlee"><h4>ADMIN DASHBOARD</h4></span> 
+                <span id="homee"><a class="link" href="index.html"><h5>HOME</h5></a></span>
+        </div>
+        <header>
+            <div class="row justify-content-center" style="margin-top: 100px;">
+                <div class="card1 cardBorder" style="width: 18rem; height: 300px;">
+                    <img src="uploads/clients.png" class="card-img-top" alt="..." width="30px" height="200px">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+
+                        <a href="/client-manager" class="btn btn-primary"
+                            style="margin-top: 10px; background-color: #2487ce;   border: 1px solid #2487ce;">Client
+                            Manager</a>
+                    </div>
+                </div>
+                <div class="card2 cardBorder" style="width: 18rem; margin-left: 150px;">
+                    <img src="uploads/care taker.png" class="card-img-top" alt="..." width="30px" height="200px">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+
+                        <a href="/user-manager" class="btn btn-primary"
+                            style="background-color: #2487ce;   border: 1px solid #2487ce;">User Manager</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

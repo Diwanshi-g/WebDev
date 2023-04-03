@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="Js/angular.min.js"></script>
+    <style>
+        .heading {
+            background-color: #2487ce;
+            color: white;
+            height: 50px;
+            margin: auto;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #2487ce;
+        }
+
+        .button-find {
+            border-radius: 5px;
+            color:#2487ce;
+            background-color: white;
+            border: 1px solid #2487ce;
+            font-weight: bold;
+            width: 100px;
+            height: 38px;
+        }
+
+        .card {
+            width: 300px;
+            box-shadow: 5px 5px 5px 5px rgba(18, 66, 101, 0.08);
+        }
+        .btn-modal {
+            font-family: "Poppins", sans-serif;
+            width: 80px;
+            height: 38px;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            border-radius: 5px;
+            transition: 0.5s;
+            color: #fff;
+            background: #2487ce;
+            border: 1px solid #2487ce;
+        }
+    </style>
+    <script>
+        var mymodule = angular.module("itsModule", []);
+        mymodule.controller("itsController", function ($scope, $http) {
+
+            $scope.citiesArray;
+            $scope.fetchCities = function () {
+                $http.get("/fetch-all-distinct-cities").then(fxOk, fxNotOk);
+                function fxOk(response) {
+                    // alert(JSON.stringify(response.data));//data contains jsonArray
+                    $scope.citiesArray = response.data;
+                }
+                function fxNotOk(response) {
+                    alert(response.data);
+                }
+            }
+            $scope.jsonInfoAry;
+            $scope.doFetchInfo = function () {
+                //  alert($scope.selCity);
+                // alert($scope.selPet);
+
+                var url = "/fetchInfo?city=" + $scope.selCity + "&pet=" + $scope.selPet;
+                $http.get(url).then(fxOk, fxNotOk);
+                function fxOk(jsonResponse) {
+                    $scope.jsonInfoAry = jsonResponse.data;
+                    //  alert(JSON.stringify(jsonResponse.data));
+                }
+                function fxNotOk(jsonResponse) {
+                    alert(JSON.stringify(jsonResponse.data));
+                }
+
+            }
+            $scope.obj;
+            $scope.showOne = function (index) {
+                //alert(index);
+                $scope.obj = $scope.jsonInfoAry[index];
+            }
+        });
+    </script>
+</head>
+
+<body ng-app="itsModule" ng-controller="itsController" ng-init="fetchCities();">
+    <div class="container">
+        <div class="heading">
+            <h4>FIND YOUR CARETAKER HERE</h4>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-4">
+                <select class="form-select" aria-label="Default select example" ng-model="selCity">
+                    <option value="">Select City</option>
+                    <option ng-repeat="obj in citiesArray">{{obj.city}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select class="form-select" aria-label="Default select example" ng-model="selPet" ng-init="selPet=none">
+                    <option value="">Select Pet</option>
+                    <option value="Cats">Cats</option>
+                    <option value="Dogs">Dogs</option>
+                    <option value="Bunnies">Bunnies</option>
+                    <option value="Hamsters">Hamsters</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="button" value="FIND" class="button-find" ng-click="doFetchInfo();">
+            </div>
+        </div>
+        <div class="row" justify-content-center style="margin-top: 70px;">
+            <div class="row">
+                <div class="col-md-3" ng-repeat="obj in jsonInfoAry">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="width: 300px;" class="card-title">{{obj.name}}</h5>
+                            <h6>EMAIL ID:{{obj.email}}</h6>
+                            <h6>CITY: {{obj.city}}</h6>
+                            <h6>PETS: {{obj.petTypes}}</h6>
+                            <button type="button" class="btn-modal" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" ng-click="showOne($index);">
+                                Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--Modal-->
+    
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="color:#2487ce; font-size: 30px;">Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <div class="fw-bold" style="font-size: 20px;">
+           Email: {{obj.email}}<br>
+           Name: {{obj.name}}<br>
+           Number: {{obj.contact}}<br>
+           Firm/Website: {{obj.firmweb}}<br>
+           Address: {{obj.address}}<br>
+           City: {{obj.city}}<br>
+           Province: {{obj.province}}<br>
+           Pet Types: {{obj.petTypes}}<br>
+           Information: {{obj.information}}<br>
+         </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

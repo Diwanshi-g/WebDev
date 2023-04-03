@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+  <style>
+    .navbarr {
+      background-color: #2487ce;
+      color: white;
+      height: 50px;
+      padding: 10px;
+      border: 1px solid#2487ce;
+    }
+
+    #titlee {
+      float: left;
+    }
+    #active {
+      text-align: center;
+    }
+
+    #logout {
+      float: right;
+      margin-right: 5px;
+    }
+
+    .link {
+      text-decoration: none;
+      color: white;
+    }
+
+    .link:hover {
+      color: blue;
+    }
+
+    .img-cards {
+      width: 230px;
+      height: 230px;
+      padding: 20px;
+      margin: auto;
+      margin-top: 10px;
+    }
+
+    @keyframes slideInLeft {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        header {
+            animation: 1s ease-out 0s 1 slideInLeft;
+
+        }
+        .cardBorder {
+            box-shadow: 29px 29px 29px 29px rgba(18, 66, 101, 0.08);
+            padding: 30px;
+        }
+  </style>
+  <script>
+    function showActiveUser() 
+    {
+      //alert(localStorage.getItem("activeUser"));
+      if (localStorage.getItem("activeUser") == null) {
+        // alert(localStorage.getItem("activeUser"));
+        location.href = "index.html";
+        return;
+      }
+      document.getElementById("active").innerHTML = "WELCOME: " + localStorage.getItem("activeUser");
+    }
+    function doLogout() 
+    {
+      // alert(localStorage.getItem("activeUser"));
+      localStorage.removeItem("activeUser");
+      // alert(localStorage.getItem("activeUser"));
+    }
+  </script>
+</head>
+
+<body  onload="showActiveUser();">
+  <div class="container">
+    <div class="navbarr">
+      <span id="titlee">
+        <h4>CARE-TAKER DASHBOARD</h4>
+      </span>
+      <span id="logout"><a class="link" href="index.html" role="button" onclick="doLogout();">
+          <h5>LOGOUT</h5>
+        </a></span>
+    </div>
+    <div id="active">*</div>
+    <header>
+      <div class="row justify-content-center" style="margin-top: 100px;">
+        <div class="card  cardBorder" style="width: 18rem;">
+          <img src="uploads/profile page icon.png" class="card-img-top img-cards" alt="...">
+          <div class="card-body">
+            <h5 class="card-title" style="text-align: center;">PROFILE PAGE</h5>
+            <p class="card-text" style="text-align: center;">Post your details here for the clients to see</p>
+            <a href="/profile-careTaker"  class="btn btn-primary"
+              style="background-color: #2487ce;  margin-left: 62px; border: 1px solid #2487ce;">Launch</a>
+          </div>
+        </div>
+        <div class="card  cardBorder" style="width: 18rem; margin-left: 70px;">
+          <img src="uploads/settings.png" class="card-img-top img-cards" alt="...">
+          <div class="card-body">
+            <h5 class="card-title" style="text-align: center;">SETTINGS</h5>
+            <p class="card-text" style="text-align: center;">You can change your password here</p>
+            <a href="#" class="btn btn-primary"
+              style="background-color: #2487ce;  margin-left: 62px; border: 1px solid #2487ce;">Launch</a>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
