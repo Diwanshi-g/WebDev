@@ -26,7 +26,7 @@ db.connect(function (Err) {
 
 app.use(express.static("public")); //url hadler
 app.use(express.urlencoded({ extended: true }));//used M.ware
-app.use(fileuploader());
+app.use(fileuploader()); 
 
 
 app.get("/", function (req, resp) {
